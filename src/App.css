@@ -149,7 +149,26 @@ body {
   border-radius: 5%;
   max-width: 120px;
 }
+.btn-remove {
+  background-color: #ff4d4f; /* Rojo claro */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px; /* Espacio entre campos e ítem */
+  transition: background-color 0.3s ease;
+}
 
+.btn-remove:hover {
+  background-color: #d9363e; /* Rojo más oscuro */
+}
+
+.btn-remove:active {
+  background-color: #b12a2d; /* Rojo aún más oscuro */
+  transform: scale(0.98); /* Efecto de presionado */
+}
 
 @media (max-width: 768px) {
   .logo {

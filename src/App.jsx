@@ -32,6 +32,19 @@ function App() {
     });
   };
 
+  const removeItem = (index) => {
+    const updatedItems = [...invoiceData.items];
+    updatedItems.splice(index, 1);
+    setInvoiceData({ ...invoiceData, items: updatedItems });
+  };
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat("es-MX", {
+      style: "currency",
+      currency: "MXN",
+    }).format(amount);
+  };
+
   const calculateTotal = () => {
     return invoiceData.items.reduce((total, item) => {
       const quantity = parseFloat(item.quantity) || 0;
@@ -148,6 +161,13 @@ function App() {
               onBlur={(e) => handleBlur(e, index)}
               onChange={(e) => handleInputChange(e, index)}
             />
+            <button
+              type="button"
+              onClick={() => removeItem(index)}
+              className="btn btn-remove"
+            >
+              Eliminar
+            </button>
           </div>
         ))}
         <button type="button" onClick={addItem} className="btn btn-add">
@@ -181,8 +201,8 @@ function App() {
                 <td>{item.description}</td>
                 <td>{item.unit}</td>
                 <td>{item.quantity}</td>
-                <td>{item.price}</td>
-                <td>{item.quantity * item.price || 0}</td>
+                <td>{formatCurrency(item.price)}</td>
+                <td>{formatCurrency(item.quantity * item.price || 0)}</td>
               </tr>
             ))}
           </tbody>
@@ -195,7 +215,7 @@ function App() {
                 Total General:
               </td>
               <td style={{ fontWeight: "bold" }}>
-                {calculateTotal().toFixed(2)}
+                {formatCurrency(calculateTotal())}
               </td>
             </tr>
           </tfoot>
